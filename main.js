@@ -86,7 +86,9 @@ api.distill = (input, fn) => {
 
  */
 api.numberOfChars = (input) => {
+  // go through all elments in this input array and concatenate them to one string.
   const concatenatedResult = api.funnel(input, function(accumulator, currentValue){return accumulator + "" + currentValue; }, "");
+  // filter out non-alphabetical letter
   const charArray = api.distill(concatenatedResult.split(''), function(char){ return char.match(/[A-Z|a-z]/i)});
   return charArray.length;
 };
@@ -109,7 +111,9 @@ api.numberOfChars = (input) => {
 
  */
 api.numberOfCertainChars = (input, c) => {
+  // go through all elments in this input array and concatenate them to one string.
   const concatenatedResult = api.funnel(input, function(accumulator, currentValue){return accumulator + "" + currentValue; }, "");
+  // filter out non-alphabetical letter and letter that does not match provided char.
   const charArray = api.distill(concatenatedResult.split(''), function(char){ return char.match(/[A-Z|a-z]/i) && c===char; });
   return charArray.length;
 };

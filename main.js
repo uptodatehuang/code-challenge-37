@@ -19,10 +19,7 @@ var api = {};
 
 */
 api.fanOut = (input, fn) => {
-  /**
-   * Your implementation goes here
-   */
-  return [];
+  return input.map( item => fn(item) );
 };
 
 /**
@@ -47,10 +44,7 @@ api.fanOut = (input, fn) => {
 
  */
 api.funnel = (input, fn, startValue) => {
-  /**
-   * Your implementation goes here
-   */
-  return 0;
+  return input.reduce((accumulator, currentValue) => fn(accumulator, currentValue), startValue);
 };
 
 /**
@@ -73,10 +67,7 @@ api.funnel = (input, fn, startValue) => {
 
  */
 api.distill = (input, fn) => {
-  /**
-   * Your implementation goes here
-   */
-  return [];
+  return input.filter( item => fn(item) );
 };
 
 /**
@@ -95,10 +86,9 @@ api.distill = (input, fn) => {
 
  */
 api.numberOfChars = (input) => {
-  /**
-   * Your implementation goes here
-   */
-  return 0;
+  const concatenatedResult = api.funnel(input, function(accumulator, currentValue){return accumulator + "" + currentValue; }, "");
+  const charArray = api.distill(concatenatedResult.split(''), function(char){ return char.match(/[A-Z|a-z]/i)});
+  return charArray.length;
 };
 
 /**
@@ -119,10 +109,9 @@ api.numberOfChars = (input) => {
 
  */
 api.numberOfCertainChars = (input, c) => {
-  /**
-   * Your implementation goes here
-   */
-  return 0;
+  const concatenatedResult = api.funnel(input, function(accumulator, currentValue){return accumulator + "" + currentValue; }, "");
+  const charArray = api.distill(concatenatedResult.split(''), function(char){ return char.match(/[A-Z|a-z]/i) && c===char; });
+  return charArray.length;
 };
 
 module.exports = api;
